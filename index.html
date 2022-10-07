@@ -11,17 +11,17 @@
 <body>
     <header class="header">
         <div><button id="scores-button">View High Scores</button></div>
-        <div class="timer" visible>
+        <div class="timer">
             Time: <span id="time-remaining">75</span></div>
     </header>
-    <div class="start-page" data-state="visible">
+    <div class="start-page">
         <h1>Coding Quiz Challenge</h1>
         <p>Answer the following five questions about JavaScript to the best of your ability. This is a timed quiz lasting up to 75 seconds. The quiz will end when you hit 0 seconds remaining or answer all of the questions. Incorrectly answering a question will result in the time remaining decreasing by 15 seconds. Your final score will be the number of seconds remaining when you have completed the quiz.</p>
         <button id="start-button">Start Quiz</button>
     </div>
 
-    <div class="quiz-questions" data-state="hidden">
-        <div id="question1" data-state="hidden">
+    <div class="quiz-questions">
+        <div id="question1">
             <h1>Commonly used data types DO NOT include:</h1>
             <ol>
                 <li><button class="answer wrong">strings</button></li>
@@ -30,7 +30,7 @@
                 <li><button class="answer wrong">numbers</button></li>
             </ol>
         </div>
-        <div id="question2" data-state="hidden">
+        <div id="question2">
             <h1>The condition in an if/else statement is enclosed within _____.</h1>
             <ol>
                 <li><button class="answer wrong">quotes</button></li>
@@ -39,7 +39,7 @@
                 <li><button class="answer wrong">square brackets</button></li>
             </ol>
         </div>
-        <div id="question3" data-state="hidden">
+        <div id="question3">
             <h1>Arrays in JavaScript can be used to store _____.</h1>
             <ol>
                 <li><button class="answer wrong">numbers and strings</button></li>
@@ -48,7 +48,7 @@
                 <li><button class="answer correct">all of the above</button></li>
             </ol>
         </div>
-        <div id="question4" data-state="hidden">
+        <div id="question4">
             <h1>String values must be enclosed within _____ when being assigned to variables.</h1>
             <ol>
                 <li><button class="answer wrong">commas</button></li>
@@ -57,7 +57,7 @@
                 <li><button class="answer wrong">parentheses</button></li>
             </ol>
         </div>
-        <div id="question5" data-state="hidden">
+        <div id="question5">
             <h1>A very useful tool used during development and debugging for printing content to the debugger is:</h1>
             <ol>
                 <li><button class="answer wrong">JavaScript</button></li>
@@ -67,21 +67,18 @@
             </ol>
         </div>
     </div>
-    <div class="end-page" data-state="hidden">
+    <div class="end-page">
         <h1>All Done</h1>
         <h2>Your final score is <span id="your-score">0</span>.</h2>
-        <form>
-            Enter your initials:
+        <form id="scores-form">
+            <label>Enter your initials:</label>
             <input id="initials-here"/>
             <button id="submit-button">Submit</button>
         </form>
     </div>
-    <div class="high-scores" data-state="hidden">
+    <div class="high-scores">
         <h1>High Scores</h1>
-        <ol>
-            <li>FP - 23</li>
-            <li>RE - 7</li>
-        </ol>
+        <ol id="ranked-scores"></ol>
         <button id="retry-button">Try Again</button>
         <button id="clear-button">Clear High Scores</button>
     </div>

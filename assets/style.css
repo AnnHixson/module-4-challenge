@@ -19,8 +19,14 @@ header {
     justify-content: space-between;
 }
 
-#scores-page {
-    background-color: var(--purple);
+#scores-button {
+    color: var(--dark);
+    background-color: var(--light);
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .start-page {
@@ -50,9 +56,10 @@ p {
     background-color: var(--dark);
     color: var(--light);
     border-radius: 15px;
-    padding: 5px;
+    padding: 10px;
 }
 
+#scores-button:hover,
 #start-button:hover,
 .quiz-questions button:hover,
 #submit-button:hover,
@@ -71,7 +78,7 @@ p {
     background-color: var(--dark);
     color: var(--light);
     border-radius: 15px;
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 15px;
 }
 
