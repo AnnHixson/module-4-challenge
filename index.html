@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <header>
-        <div>View High Scores</div>
+    <header class="header">
+        <div><button id="scores-button">View High Scores</button></div>
         <div class="timer" visible>
-            Time: <span id="time-remaining">0</span></div>
+            Time: <span id="time-remaining">75</span></div>
     </header>
     <div class="start-page" data-state="visible">
         <h1>Coding Quiz Challenge</h1>
@@ -24,46 +24,46 @@
         <div id="question1" data-state="hidden">
             <h1>Commonly used data types DO NOT include:</h1>
             <ol>
-                <li><button class="wrong">strings</button></li>
-                <li><button class="wrong">booleans</button></li>
-                <li><button class="correct">alerts</button></li>
-                <li><button class="wrong">numbers</button></li>
+                <li><button class="answer wrong">strings</button></li>
+                <li><button class="answer wrong">booleans</button></li>
+                <li><button class="answer correct">alerts</button></li>
+                <li><button class="answer wrong">numbers</button></li>
             </ol>
         </div>
         <div id="question2" data-state="hidden">
             <h1>The condition in an if/else statement is enclosed within _____.</h1>
             <ol>
-                <li><button class="wrong">quotes</button></li>
-                <li><button class="wrong">curly brackets</button></li>
-                <li><button class="correct">parentheses</button></li>
-                <li><button class="wrong">square brackets</button></li>
+                <li><button class="answer wrong">quotes</button></li>
+                <li><button class="answer wrong">curly brackets</button></li>
+                <li><button class="answer correct">parentheses</button></li>
+                <li><button class="answer wrong">square brackets</button></li>
             </ol>
         </div>
         <div id="question3" data-state="hidden">
             <h1>Arrays in JavaScript can be used to store _____.</h1>
             <ol>
-                <li><button class="wrong">numbers and strings</button></li>
-                <li><button class="wrong">other arrays</button></li>
-                <li><button class="wrong">booleans</button></li>
-                <li><button class="correct">all of the above</button></li>
+                <li><button class="answer wrong">numbers and strings</button></li>
+                <li><button class="answer wrong">other arrays</button></li>
+                <li><button class="answer wrong">booleans</button></li>
+                <li><button class="answer correct">all of the above</button></li>
             </ol>
         </div>
         <div id="question4" data-state="hidden">
             <h1>String values must be enclosed within _____ when being assigned to variables.</h1>
             <ol>
-                <li><button class="wrong">commas</button></li>
-                <li><button class="wrong">curly brackets</button></li>
-                <li><button class="correct">quotes</button></li>
-                <li><button class="wrong">parentheses</button></li>
+                <li><button class="answer wrong">commas</button></li>
+                <li><button class="answer wrong">curly brackets</button></li>
+                <li><button class="answer correct">quotes</button></li>
+                <li><button class="answer wrong">parentheses</button></li>
             </ol>
         </div>
         <div id="question5" data-state="hidden">
             <h1>A very useful tool used during development and debugging for printing content to the debugger is:</h1>
             <ol>
-                <li><button class="wrong">JavaScript</button></li>
-                <li><button class="wrong">terminal/bash</button></li>
-                <li><button class="wrong">for loops</button></li>
-                <li><button class="correct">console.log</button></li>
+                <li><button class="answer wrong">JavaScript</button></li>
+                <li><button class="answer wrong">terminal/bash</button></li>
+                <li><button class="answer wrong">for loops</button></li>
+                <li><button class="answer correct">console.log</button></li>
             </ol>
         </div>
     </div>
@@ -72,8 +72,8 @@
         <h2>Your final score is <span id="your-score">0</span>.</h2>
         <form>
             Enter your initials:
-            <textarea></textarea>
-            <button>Submit</button>
+            <input id="initials-here"/>
+            <button id="submit-button">Submit</button>
         </form>
     </div>
     <div class="high-scores" data-state="hidden">
@@ -82,13 +82,9 @@
             <li>FP - 23</li>
             <li>RE - 7</li>
         </ol>
-        <button>Try Again</button>
-        <button>Clear High Scores</button>
+        <button id="retry-button">Try Again</button>
+        <button id="clear-button">Clear High Scores</button>
     </div>
-
-
-
-
 
   <script src="./assets/script.js"></script>
 </body>

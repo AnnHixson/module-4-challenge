@@ -7,6 +7,7 @@
 
 body {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     line-height: 1.5;
     font-family:Georgia, 'Times New Roman', Times, serif;
@@ -16,6 +17,10 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+#scores-page {
+    background-color: var(--purple);
 }
 
 .start-page {
@@ -48,7 +53,69 @@ p {
     padding: 5px;
 }
 
-#start-button:hover {
+#start-button:hover,
+.quiz-questions button:hover,
+#submit-button:hover,
+.high-scores button:hover {
     cursor: pointer;
     box-shadow: inset 0px 0px 5px var(--blue), 0 0 5px var(--blue);
+}
+
+.quiz-questions ol {
+    font-size: 20px;
+    margin-left: 15%;
+}
+
+.quiz-questions button {
+    font-size: 20px;
+    background-color: var(--dark);
+    color: var(--light);
+    border-radius: 15px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.end-page h2 {
+    display: flex;
+    justify-content: center;
+}
+
+.end-page form {
+    display: flex;
+    justify-content: center;
+}
+
+#submit-button{
+    font-size: 20px;
+    background-color: var(--dark);
+    color: var(--light);
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.high-scores ol {
+    margin-left: 20%;
+    padding-left: 13%;
+    font-size: 20px;
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap; */
+}
+
+.high-scores ol:nth-child(even) {
+    background-color: var(--purple);
+}
+
+.high-scores li {
+    border: 2px solid var(--dark)
+}
+
+.high-scores button {
+    font-size: 20px;
+    background-color: var(--dark);
+    color: var(--light);
+    border-radius: 15px;
+    padding: 5px;
+    margin-left: 25%;
 }
