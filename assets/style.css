@@ -2,7 +2,7 @@
     --dark: rgb(20, 21, 26);
     --light: rgb(77, 181, 204);
     --blue: rgb(26, 105, 209);
-    --purple: rgb(128, 0, 122);
+    --purple: rgba(128, 0, 122, 0.521);
 }
 
 body {
@@ -86,10 +86,19 @@ p {
     display: flex;
     justify-content: center;
 }
+.end-page span {
+    margin-left: 7px;
+}
 
 .end-page form {
     display: flex;
     justify-content: center;
+}
+
+.end-page label{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
 }
 
 #submit-button{
@@ -98,10 +107,12 @@ p {
     color: var(--light);
     border-radius: 15px;
     padding: 5px;
+    margin-left: 15px;
 }
 
 .high-scores ol {
     margin-left: 20%;
+    margin-right: 20%;
     padding-left: 13%;
     font-size: 20px;
     /* display: flex;
@@ -112,11 +123,15 @@ p {
 
 /* .high-scores ol:nth-child(even) {
     background-color: var(--purple);
-}
+} */
 
 .high-scores li {
-    border: 2px solid var(--dark)
-} */
+    padding-left: 5px;
+}
+
+.high-scores li:nth-child(even) {
+    background-color: var(--purple);
+}
 
 .high-scores button {
     font-size: 20px;
@@ -125,4 +140,12 @@ p {
     border-radius: 15px;
     padding: 5px;
     margin-left: 25%;
+}
+
+#answer-was {
+    display: flex;
+    justify-content: center;
+    color: var(--purple);
+    font-size: 18px;
+    margin-top: 10px;
 }
