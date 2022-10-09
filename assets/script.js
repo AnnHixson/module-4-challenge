@@ -18,7 +18,11 @@ var endPage = document.querySelector(".end-page");
 var scoresPage = document.querySelector(".high-scores");
 
 var timer = document.querySelector("#time-remaining");
-// var secondsLeft = 75;
+var secondsLeft = 75;
+
+
+
+
 
 // Starting State
 question1.hidden = true;
@@ -31,9 +35,7 @@ scoresPage.hidden = true;
 
 // Event Listeners
 startButton.addEventListener("click", startQuiz);
-// submitButton.addEventListener("click", submitInitials);
 retryButton.addEventListener("click", tryAgain);
-// clearButton.addEventListener("click", clearScores);
 viewScoresButton.addEventListener("click", viewHighScores);
 
 quizQuestions.addEventListener("click", function(event) {
@@ -52,31 +54,27 @@ quizQuestions.addEventListener("click", function(event) {
         if (currentQuestion < 5) {
             (questionsArray[currentQuestion]).hidden = false;
         } else {
-            // stopTimer();
+            stopTimer();
             endPage.hidden = false;
             currentQuestion = 0;
+            points.textContent = timer.textContent;
+            score = timer.textContent;
         };
     }
 });
 
 // Functions
 function startQuiz() {
-    // beginTimer();
+    beginTimer();
     startPage.style.display = 'none';
     (questionsArray[currentQuestion]).hidden = false;
 }
-
-
 
 function tryAgain() {
     scoresPage.hidden = true
     startPage.style.display = 'flex'
     timer.textContent = 75;
 }
-
-// function clearScores() {
-
-// }
 
 function viewHighScores() {
     startPage.style.display = 'none';
@@ -90,103 +88,168 @@ function viewHighScores() {
     timer.textContent = 75;
 }
 
-// function beginTimer() {
-//     var timeRemaining = setInterval(function() {
-//         secondsLeft--;
-//         timer.textContent = secondsLeft;
-//         if(secondsLeft === 0) {
-//             clearInterval(timeRemaining);
-//         }
-//     }, 1000);
-// };
+function beginTimer() {
+    var timeRemaining = setInterval(function() {
+        secondsLeft--;
+        timer.textContent = secondsLeft;
+        if(secondsLeft === 0) {
+            
+        }
+    }, 1000);
+};
 
-// function stopTimer() {
+function stopTimer() {
+    clearInterval(timeRemaining)
+}
 
-// }
 
 
 
-// testing
+
+
+
+
+
+
+
+
+
+
+// testing (followed class tutorial - local storage todos)
+
 var rankedScores = document.querySelector("#ranked-scores")
 var scores = [];
 var scoresForm = document.querySelector("#scores-form");
 var initialsInput = document.querySelector("#initials-here")
 
+var sortedCars
+
+var points = document.querySelector("#your-score");
+var score;
+
+
+var quizAttempt
+
+
+
 function renderScores() {
+    // var lastGrade = JSON.parse(localStorage.getItem("sortedCars"));
+    // rankedScores.innerHTML = "";
+    // for (var i = 0; i < lastGrade.length; i++) {
+    //     var scorez = scores[i];
+    //     var li = document.createElement("li");
+    //     // What is listed on the high scores page
+    //     li.textContent = scorez
+    //     // li.setAttribute("data-index", i);
+    //     rankedScores.appendChild(li)
+    // }
+
+
+
     rankedScores.innerHTML = "";
 
+    // testing
+
+
+
+
+
+
     for (var i = 0; i < scores.length; i++) {
-        var score = scores[i];
+        var scorez = scores[i];
+
+        // testing
+        localStorage.getItem("quizAttempt", JSON.stringify(quizAttempt));
+
         var li = document.createElement("li");
-        li.textContent = score;
-        li.setAttribute("data-index", i);
+        // What is listed on the high scores page
+        // li.textContent = scorez
+
+        li.textContent = quizAttempt
+
+
         rankedScores.appendChild(li)
     }
 }
-// This function is being called below and will run when the page loads.
+
 function init() {
-    // Get stored todos from localStorage
     var storedScores = JSON.parse(localStorage.getItem("scores"));
-  
-    // If todos were retrieved from localStorage, update the todos array to it
+
+    // // testing
+    // var storedAttempt = JSON.parse(localStorage.getItem("quizAttempt"))
+
     if (storedScores !== null) {
       scores = storedScores;
+
+        // testing
+        // quizAttempt = storedAttempt;
+
+
     }
-  
-    // This is a helper function that will render todos to the DOM
     renderScores();
-  }
+}
   
-  function storeScores() {
-    // Stringify and set key in localStorage to todos array
+function storeScores() {
     localStorage.setItem("scores", JSON.stringify(scores));
-  }
-  
-  // Add submit event to form
-  scoresForm.addEventListener("submit", function(event) {
+    localStorage.setItem("quizAttempt", JSON.stringify(quizAttempt));
+}
+ 
+scoresForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    // function submitInitials(event) {
-    //     event.preventDefault();
-        endPage.hidden = true;
-        scoresPage.hidden = false;
-        
-    // }
+    endPage.hidden = true;
+    scoresPage.hidden = false;
     var scoresText = initialsInput.value.trim();
-  
-    // Return from function early if submitted todoText is blank
+    // testing
+
     if (scoresText === "") {
       return;
-    }
-  
-    // Add new todoText to todos array, clear the input
-    scores.push(scoresText);
+    };
+    // testing
+
+    // var cars = [];
+    
+    quizAttempt = {
+        "initials": scoresText,
+        "pointValue": score
+    };
+
+    scores.push(quizAttempt);
+    localStorage.setItem("quizAttempt", JSON.stringify(quizAttempt));
+    console.log(scores)
+
+    scores.sort((c1, c2) => (c1.pointValue < c2.pointValue) ? 1 : (c1.pointValue > c2.pointValue) ? -1 : 0);
+    // console.log(sortedCars);
+    console.log(scores);
+
+    // localStorage.setItem("sortedCars", JSON.stringify(sortedCars));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     initialsInput.value = "";
-  
-    // Store updated todos in localStorage, re-render the list
     storeScores();
     renderScores();
-  });
+});
   
+function clearScores() {
+    scores = [];
+    storeScores();
+    renderScores();
+}
 
-//   TESTING
+clearButton.addEventListener("click", clearScores)
 
-
-//   // Add click event to todoList element
-    clearButton.addEventListener("click", function(event) {
-//   todoList.addEventListener("click", function(event) {
-        var element = event.target;
-  
-        // Checks if element is a button
-        if (element.matches("clear-button") === true) {
-        // Get its data-index value and remove the todo element from the list
-        var index = element.parentElement.getAttribute("data-index");
-        scores = [];
-  
-      // Store updated todos in localStorage, re-render the list
-        storeScores();
-        renderScores();
-        }
-    });
-  
-  // Calls init to retrieve data and render it to the page on load
-  init()
+init()
