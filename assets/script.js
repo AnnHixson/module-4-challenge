@@ -141,6 +141,23 @@ quizQuestions.addEventListener("click", function(event) {
     }
 });
 
+// Disable the Submit button if the initialsInput field is blank
+if (initialsInput.value === "") {
+    submitButton.disabled = true;
+}
+// Listen for a change in the initialsInput field
+initialsInput.addEventListener('change', submitEnabler) 
+function submitEnabler() {
+    // Disable the Submit button if the initialsInput field is blank
+    if (initialsInput.value === "") {
+        submitButton.disabled = true;
+    };
+    // Enable the Submit button if the initialsInput field is not blank
+    if (initialsInput.value !== "") {
+        submitButton.disabled = false;
+    };
+}
+
 // Click to submit initials and score
 scoresForm.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -152,14 +169,6 @@ scoresForm.addEventListener("submit", function(event) {
     scoresPage.hidden = false;
     // Part of storing user's initials
     var scoresText = initialsInput.value.trim();
-    // If the user did not enter initials, this keeps a score without initials from being put on the scoreboard
-    if (scoresText === "") {
-    //   MIGHT ADD: Alert that field is blank
-        // submitButton.disabled = true;
-        // message("Please enter your initials!")
-        
-        return;
-    };
     // Add user's initials and score to the scores array as an object
     var quizAttempt = {
         "initials": scoresText,
@@ -286,14 +295,6 @@ function message(x) {
         };
     }, 1000);
 }
-
-
-
-
-
-
-
-
 
 // Call the init function to pull scores from local storage on page load
 init()

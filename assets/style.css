@@ -99,6 +99,7 @@ p {
     display: flex;
     align-items: center;
     margin-right: 15px;
+    font-size: 18px;
 }
 
 #submit-button{
@@ -115,15 +116,7 @@ p {
     margin-right: 20%;
     padding-left: 13%;
     font-size: 20px;
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap; */
 }
-
-/* .high-scores ol:nth-child(even) {
-    background-color: var(--purple);
-} */
 
 .high-scores li {
     padding-left: 5px;
