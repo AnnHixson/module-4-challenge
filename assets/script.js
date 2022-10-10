@@ -85,7 +85,6 @@ function startTimer() {
             // Reset quiz completion. In case of rapidly clicking to end causing time to run out
             allDone = false;
             // Display message that time ran out
-            // answerWas.textContent = "Time's up!";
             clickNext = true;
             message("Time's up!");
             // Hide question page
@@ -111,19 +110,14 @@ quizQuestions.addEventListener("click", function(event) {
         // Answer correctly
         if (answer.matches(".correct")) {
             // Display message that the answer was correct
-            // answerWas.style.display = "flex";
-            // answerWas.textContent = "Correct!"
             clickNext = true;
             message("Correct!");
         };
         // Answer incorrectly
         if (answer.matches(".wrong")) {
             // Display message that the answer was wrong
-            // answerWas.style.display = "flex";
-            // answerWas.textContent = "Wrong!"
             clickNext = true;
             message("Wrong!");
-
             // Deduct 15 seconds from remaining time
             timeCount -= 15;
         };
@@ -154,8 +148,6 @@ scoresForm.addEventListener("submit", function(event) {
     endPage.hidden = true;
     // Enable View High Scores button
     viewScoresButton.disabled = false;
-    // MAY BE REMOVABLE IF MESSAGE ON A TIMER: Hide message
-    answerWas.style.display = "none"
     // Show high scores page
     scoresPage.hidden = false;
     // Part of storing user's initials
@@ -260,12 +252,12 @@ var clickNext = false;
 
 // Display message functionality
 function message(x) {
-    var messageTime
+    var messageTime;
     // Length of display time set
-    var messageTimeCount = 3
+    var messageTimeCount = 3;
     // Display message
     answerWas.style.display = "flex";
-    answerWas.textContent = x
+    answerWas.textContent = x;
     // Display time countdown
     messageTime = setInterval(function() {
         // Countdown
@@ -275,7 +267,7 @@ function message(x) {
             // Stop the message timer
             clearInterval(messageTime);
             // Reset message timer
-            messageTimeCount = 3
+            messageTimeCount = 3;
             // Reset variable state
             clickNext = false;
             // Hide message
@@ -286,7 +278,7 @@ function message(x) {
             // Stop the timer
             clearInterval(messageTime);
             // Reset message timer
-            messageTimeCount = 3
+            messageTimeCount = 3;
             // Reset variable state
             clickNext = false;
             // Hide message
