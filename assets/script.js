@@ -77,7 +77,7 @@ function startTimer() {
             allDone = false;
         };
         // If time runs out before all questions are answered
-        if (timeCount <= 0) { //problem: if it goes under zero
+        if (timeCount <= 0) {
             // Stop the timer
             clearInterval(time);
             // Displays the timer as being at 0. In case of it hitting a negative number
@@ -85,7 +85,9 @@ function startTimer() {
             // Reset quiz completion. In case of rapidly clicking to end causing time to run out
             allDone = false;
             // Display message that time ran out
-            answerWas.textContent = "Time's up!";
+            // answerWas.textContent = "Time's up!";
+            clickNext = true;
+            message("Time's up!");
             // Hide question page
             (questionsArray[currentQuestion]).hidden = true;
             // Show end page
@@ -96,6 +98,8 @@ function startTimer() {
             yourScore.textContent = timer.textContent;
             // Part of saving the remaining time as your score for the scoreboard
             score = timer.textContent;
+            // Enable View High Scores button
+            viewScoresButton.disabled = false;
         };
     }, 1000);
 }
@@ -107,14 +111,19 @@ quizQuestions.addEventListener("click", function(event) {
         // Answer correctly
         if (answer.matches(".correct")) {
             // Display message that the answer was correct
-            answerWas.style.display = "flex";
-            answerWas.textContent = "Correct!"
+            // answerWas.style.display = "flex";
+            // answerWas.textContent = "Correct!"
+            clickNext = true;
+            message("Correct!");
         };
         // Answer incorrectly
         if (answer.matches(".wrong")) {
             // Display message that the answer was wrong
-            answerWas.style.display = "flex";
-            answerWas.textContent = "Wrong!"
+            // answerWas.style.display = "flex";
+            // answerWas.textContent = "Wrong!"
+            clickNext = true;
+            message("Wrong!");
+
             // Deduct 15 seconds from remaining time
             timeCount -= 15;
         };
@@ -141,34 +150,40 @@ quizQuestions.addEventListener("click", function(event) {
 // Click to submit initials and score
 scoresForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    // page display
+    // Hide end page
     endPage.hidden = true;
+    // Enable View High Scores button
     viewScoresButton.disabled = false;
-    // answerWas.hidden = true;
+    // MAY BE REMOVABLE IF MESSAGE ON A TIMER: Hide message
     answerWas.style.display = "none"
+    // Show high scores page
     scoresPage.hidden = false;
-    // enter initials
+    // Part of storing user's initials
     var scoresText = initialsInput.value.trim();
+    // If the user did not enter initials, this keeps a score without initials from being put on the scoreboard
     if (scoresText === "") {
-    //   NEED TO ADD: Alert that field is blank
+    //   MIGHT ADD: Alert that field is blank
+        // submitButton.disabled = true;
+        // message("Please enter your initials!")
+        
         return;
     };
-    // add initials and score to scores array
+    // Add user's initials and score to the scores array as an object
     var quizAttempt = {
         "initials": scoresText,
         "pointValue": score
     };
     scores.push(quizAttempt);
-    // sort scores array by score value
+    // Sort scores array by score values
     scores.sort((c1, c2) => (c1.pointValue < c2.pointValue) ? 1 : (c1.pointValue > c2.pointValue) ? -1 : 0);
-    // clear initial input location
+    // Clear initialsInput field
     initialsInput.value = "";
-    // save scores array
+    // Save scores array
     storeScores();
-    // display scores array in a list with each score as a separate list item
+    // Display scores array in a list with each score as a separate list item
     renderScores();
 });
-// load scores list from storage on page load
+// Load scores list from local storage on page load
 function init() {
     var storedScores = JSON.parse(localStorage.getItem("scores"));
     if (storedScores !== null) {
@@ -176,19 +191,24 @@ function init() {
     }
     renderScores();
 }
+// Save scores array
 function storeScores() {
     localStorage.setItem("scores", JSON.stringify(scores));
 }
+// Display scores array in a list with each score as a separate list item
 function renderScores() {
-    // empty current contents
+    // Empty the current contents of the scoreboard
     rankedScores.innerHTML = "";
-    // for each item in scores array
+    // For each item in scores array...
     for (var i = 0; i < scores.length; i++) {
         var scorez = scores[i];
+        // Display as "initials - score"
         scorez.textContent = scores[i].initials + " - " + scores[i].pointValue
+        // Create list items
         var li = document.createElement("li");
-        // What is listed on the high scores page
+        // List items show "initials - score"
         li.textContent = scorez.textContent
+        // Add list items to the scoreboard ordered list
         rankedScores.appendChild(li)
     }
 }
@@ -197,8 +217,11 @@ function renderScores() {
 clearButton.addEventListener("click", clearScores)
 
 function clearScores() {
+    // Reset scores array to empty
     scores = [];
+    // Save empty scores array
     storeScores();
+    // Display empty scores array
     renderScores();
 }
 
@@ -206,8 +229,11 @@ function clearScores() {
 retryButton.addEventListener("click", tryAgain);
 
 function tryAgain() {
+    // Hide high scores page
     scoresPage.hidden = true
+    // Show start page
     startPage.style.display = 'flex'
+    // Reset timer display
     timer.textContent = 75;
 }
 
@@ -215,6 +241,7 @@ function tryAgain() {
 viewScoresButton.addEventListener("click", viewHighScores);
 
 function viewHighScores() {
+    // Set only the high scores page as visible
     startPage.style.display = 'none';
     answerWas.style.display = "none";
     question1.hidden = true;
@@ -224,11 +251,57 @@ function viewHighScores() {
     question5.hidden = true;
     endPage.hidden = true;
     scoresPage.hidden = false;
+    // Reset timer display
     timer.textContent = 75;
 }
 
+// Variable for length of message display time
+var clickNext = false;
 
-// Important for score storage
+// Display message functionality
+function message(x) {
+    var messageTime
+    // Length of display time set
+    var messageTimeCount = 3
+    // Display message
+    answerWas.style.display = "flex";
+    answerWas.textContent = x
+    // Display time countdown
+    messageTime = setInterval(function() {
+        // Countdown
+        messageTimeCount--;
+        // If the next question is answered before the timer hits 0
+        if (messageTimeCount > 0 && clickNext === true) {
+            // Stop the message timer
+            clearInterval(messageTime);
+            // Reset message timer
+            messageTimeCount = 3
+            // Reset variable state
+            clickNext = false;
+            // Hide message
+            answerWas.style.display = "none";
+            };
+        // If time runs out before next question is answered
+        if (messageTimeCount <= 0) {
+            // Stop the timer
+            clearInterval(messageTime);
+            // Reset message timer
+            messageTimeCount = 3
+            // Reset variable state
+            clickNext = false;
+            // Hide message
+            answerWas.style.display = "none";
+        };
+    }, 1000);
+}
 
-// testing
+
+
+
+
+
+
+
+
+// Call the init function to pull scores from local storage on page load
 init()
